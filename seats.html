@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Buses</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <style>
+            /*.head{
+                margin: 0px;
+                align-items: center;
+                
+            
+            }
+            .head h1{
+                text-align: center;
+                font-size: 30px;
+                color: red;
+                background:lightblue;
+                padding: 4px;
+                margin: 0px;
+            }
+            .head img{
+                width: 100%; 
+                height: auto;
+                border-radius: 10px; 
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2)
+            }*/
+            .head {
+            position: relative;
+            text-align: center;
+            margin-top: auto;
+            }
+
+            .head h1 {
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 25px;
+            }
+
+            .head img {
+                width: 100%; 
+                /*height: 100vh;*/
+                max-width: 100%; 
+                border: 2px solid #ddd;
+                border-radius: 8px;
+                position: relative; 
+                z-index: 1; 
+            }
+
+            .head::before {
+                content: "";
+                position: absolute;
+                top: 1;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: rgba(255, 0, 0, 0.5); /* Set your desired background color with transparency */
+                z-index: 0; /* Set a lower z-index for the background color */
+            }
+            .content{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                background-image: url("{% static 'images/bus1.jpg'%}");
+                background-size: cover;
+                background-position: center center;
+                margin: 5px;
+            }
+            .content h1{
+                font-size: 20px;
+                font-weight: 800;
+                color: red;
+            }
+            .content p{
+                font-size: 20px;
+            }
+            .content table{
+                border-collapse: collapse;
+                width: 80%;
+                margin: 0 auto;
+                background-color: white;
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            }
+            .content th,td{
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+            .content th {
+                 background-color: #f2f2f2;
+            }
+
+           .content tr:nth-child(even) {
+                background-color: #f2f2f2;
+           }
+
+           .content tr:nth-child(odd) {
+                 background-color: #ffffff;
+           }
+           .content ul{
+               list-style: none;
+           }
+           .content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: lightblue; 
+            color: white; 
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+            margin-bottom: 20px;
+          }
+
+            .content a:hover {
+                background-color: red; 
+            }
+            
+        
+                .fas.fa-car {
+                color: #007bff;  
+                font-size: 24px; 
+                margin-left: 8px; 
+            }
+
+        .fas.fa-box {
+            color: #FF5733; 
+            font-size: 24px; 
+            margin-left: 8px; 
+        }
+            
+             .fas.fa-bus {
+            color: #007bff; 
+            font-size: 24px; 
+            margin-right: 8px; 
+        }
+
+            
+        </style>
+    </head>
+    <body>
+        <div class="head">
+            <h1>Available buses</h1>
+             <img src="{% static 'images/bus3.jpg'%}"> 
+            </div>
+            <div class="content">
+                <h1>Our Buses</h1>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Bus Number</th>
+                            <th>Available Seats</th>
+                            <th>Reserved Seats</th>
+                            <th>Routes/Departure time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in bus_data %}
+                            <tr>
+                                <td>{{ data.bus.bus_number }}</td>
+                                <td>{{ data.available_seats }}</td>
+                                <td>{{ data.reserved_seats }}</td>
+                                <td>
+                                    <ul>
+                                        {% for route in data.bus_routes %}
+                                            <li>{{ route.route_name }} - {{ route.departure_time}}</li>
+                                        {% empty %}
+                                            <li>No routes available for this bus</li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3">No buses available</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        <a href="{% url 'booking'%}">Make reservations</a>
+        
+        </div>
+        
+        
+        
+    </body>
+</html>

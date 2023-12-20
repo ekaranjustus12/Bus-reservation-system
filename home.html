@@ -1,0 +1,223 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link href="{% static '/css/home.css' %}" rel="stylesheet"type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <style>
+            .accordion_container{
+            padding:10px;
+            width:100%;
+            background:lightblue;
+            margin:5px 10px;
+        }
+    .accordion{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        }
+   .accordion button{
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      position: absolute;
+      right:30%;
+      
+  }
+    .quiz,.answer{
+        padding: 0.7 rem;
+    }
+  .quiz{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: transparent;
+      color:black;
+      margin: 10px;
+  }
+  .answer{
+      background-color: white;
+      display: none;
+  }
+  .accordion.active .answer{
+      display: block;
+  }
+  .accordion_container h1{
+      margin: 10px;
+      font-size: 20px;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+  }
+
+
+         .image {
+           text-align: center;
+           margin-bottom: 10px;
+        }
+
+        .image img {
+        max-width: 100%;
+        position: relative;
+        border: 2px solid white;
+        border-radius: 10px;
+        margin-bottom:10px ;
+         
+        }
+        .moving-images {
+            width: 100%;
+            height: 700px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            
+            object-fit: cover;
+            }
+
+        .image a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0074D9; /* Background color for the button */
+            color: #fff; /* Text color */
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .image a:hover {
+            background-color: red;
+        }
+        i.fas {
+            font-size: 24px; 
+            color: #0074D9; 
+            margin-right: 5px; 
+        }
+        i.fas.kshs-icon::before {
+            content: "Kshs";
+        }
+
+
+        i.fas.fa-chair {
+            color: #FF5733; 
+        }
+            .fab.fa-twitter {
+                color: #1DA1F2; 
+                font-size: 24px; 
+                margin-right: 8px;  
+        }
+
+        /* Style the WhatsApp icon */
+        .fab.fa-whatsapp {
+            color: #25D366; 
+            font-size: 24px; 
+            margin-right: 8px; 
+        }
+        </style>
+    </head>
+    <body>
+    
+    <div class='content'>
+        
+        <a href="#Home">Home</a>
+        <a href="#contacts">contact us</a>
+        <a href="#routes">our routes</a>
+    </div>
+    <div class="Home" id="Home">
+        <h1>Welcome to Turk Reef Bus <span><i class="fas fa-bus"></i></span></h1>
+        <h2>most affordable bus <i class="fas fa-dollar-sign kshs-icon"></i></h2>
+        <p>Make reservations with us <i class="fas fa-calendar-check"></i></p>
+    </div>
+    <div class="image">
+        <img src="{% static '/images/bus1.jpg' %}" alt="Turk Reef Bus"class='moving-images'id='myImage'>
+        <a href="{% url 'checkseats' %}">Check Available buses</a>
+    </div>
+     
+     </div>
+    </div>
+
+    
+    <div class='Destination'>
+        <h1>Top Destinations</h1>
+        {% for dest in dests %}
+        <img src='{{ dest.image.url}}'>
+        <p>{{ dest.name}}</p>
+        {% endfor %}
+    </div>
+    
+    <div>
+        
+    </div>
+    <div class="contacts"id="contacts">
+        <div class="cols">
+            <h1>contact us</h1>
+            <p>p.o BOX 345</p>
+            <p>Lodwar</p>
+            <p>254759479720</p>
+        </div>
+        <div class="cols">
+            <h1>Links</h1>
+            <a href="https://twitter.com/home"><i class="fab fa-twitter"></i>Twitter</a>
+            <a href=""><i class="fab fa-whatsapp"></i>whatsapp</a>
+        </div>
+        
+
+    </div>
+    <div class="routes"id="routes">
+        <h1>our routes</h1>
+        <p>Kitale - Lodwar</p>
+        <p>Eldoret - Lodwar</p>
+        <p>Kitale - Eldoret</p>
+    </div>
+    <div class="accordion_container">
+        <h1>FAQS</h1>
+        <div class="accordion ">
+            <div class="quiz">
+                <h2>Does Turk bus go to Nairobi</h2>
+                <button>+</button>
+            </div>
+            <div class="answer">
+                <p>No,Turk reef bus only goes to Kitale,Eldoret and Lodwar</p>
+            </div>
+        </div>
+        <div class="accordion"> 
+            <div class="quiz">
+                <h2>How much can make reservation online for Turk reef bus</h2>
+                <button>+</button>
+            </div>
+            <div class="answer">
+                <p>To make your reservations online visit Turk Reef bus website with your preffered browser</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const accordions=document.querySelectorAll('.accordion')
+        accordions.forEach(accordion=>{
+            let accordionBtn=accordion.querySelector('button');
+
+            accordion.addEventListener('click',e=>{
+                accordion.classList.toggle('active');
+                if(accordionBtn.innerText==='+'){
+                    accordionBtn.innerText='-';
+                }else{
+                    accordionBtn.innerText='+';
+                }
+
+            })
+        })
+        let img = document.getElementById("myImage");
+        let images = ["bus3.jpg", "bus4.jpg"];
+        let index = 0;
+        setInterval(function() {
+        index = (index + 1) % images.length;
+        img.src = "{% static 'images/' %}" + images[index];
+        }, 5000);
+    </script>
+
+    </body>
+</html>

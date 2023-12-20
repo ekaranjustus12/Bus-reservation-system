@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Status</title>
+    <style>
+        body{
+            background: beige;
+        }
+        .fail{
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(100%);
+            animation: slideInFromRight 1s forwards;
+            position: absolute;
+            left: 40%;
+            top: 20%;
+            transform: translate(-50%, -50%);
+        }
+        .fail h1{
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        @keyframes slideInFromRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .fail button{
+            padding: 10px 15px;
+            border:1px solid;
+            border-radius:10px;
+            font-size:20px;
+            background:grey;
+            transition: 0.3s ease-in;
+            border: 1px solid;
+            border-radius: 10px;
+
+        }
+        .fail button:hover{
+            background: green;
+        }
+
+    </style>
+</head>
+<body>
+    
+   <div class="fail">
+    <h1>Payment Failed</h1>
+    <p>Result Description {{ res_desc }}</p>
+    <button id='ok'>ok</button>
+    <p id="redirect-message" style="display: none;">Redirecting, kindly wait...</p>
+    </div>
+
+    <script>
+        document.getElementById('ok').onclick = function(){
+        // Display the redirect message
+        document.getElementById('redirect-message').style.display = 'block';
+
+        // Set a delay of 5 seconds (5000 milliseconds) before redirecting
+        setTimeout(function () {
+            window.location.href = "{% url 'index' %}";
+        }, 5000);
+    };
+        
+    </script>
+    <!-- <p>Response Code: {{ status_code }}</p>
+    <p>Response Content: {{ response_data }}</p>
+    <hr>
+    <p>Status: {{ status_code }}</p>
+    <p>Receipt Number: {{ merchant_request_id }}</p>
+    <p>Transaction ID: {{ checkout_request_id }}</p>
+    </div>
+    </div>-->
+    
+</body>
+</html>

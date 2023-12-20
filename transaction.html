@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <style>
+      body{
+        background: beige;
+      }
+      #ptext{
+        display: none;
+        font-size: 20px;
+        margin: 5px;
+        color: black;
+        padding: 10px;
+      }
+      #pay{
+        display: none;
+        font-size: 20px;
+        transition: 0.3s ease;
+        color: black;
+        text-decoration:none;
+        border: 1px solid;
+        padding: 10px 20px;
+        border-radius: 20px;
+        margin-top: 5px;
+        background: lightgrey;
+        
+      }
+      #pay:hover{
+        background: green;
+        cursor: pointer;
+      }
+      .transaction_details{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: auto;
+        margin: 10px;
+      }
+      .transaction_details h1{
+        font-size:20px;
+        font-style:sans-serif;
+        font-weight: bold;
+        color:black;
+        margin-bottom:10px;
+      }
+      form{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position:relative;
+        top: 10%;
+        left: 0%;
+        text-align: center;
+        width: 40%;
+        height: 70vh;
+        background:lightgrey;
+        margin: 10px;
+      }
+      input{
+        display:block;
+        font-size: 20px;
+        font-weight: 400;
+        padding: 5px;
+        width: 200px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+        
+        
+      }
+      label {
+            display:inline-block;
+            font-size: 20px;
+            margin-bottom: 5px;
+           
+        }
+      #submit-button{
+        background:grey;
+        font-size: 20px;
+        border: 1px;
+        padding: 5px 10px;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 20%;
+        height: 50px;
+        text-align: center;
+        transition: 0.3s ease-in;
+      }
+      #submit-button:hover{
+        background: green;
+      }
+      .show{
+        text-align: center;
+      }
+      .show p{
+        font-size: 20px;
+        font-weight: 400;
+      }
+      .show a{
+        font-size: 20px;
+        cursor: pointer;
+        
+      }
+    </style>
+    </head>
+    <body>
+        <div class="transaction_details">
+          <h1>Confirm booking details</h1>
+          <form method="post"action="{% url 'transaction' %}" id="form">
+            {% csrf_token %}
+            <label for="seat_number">Number of Seats:<input type="text" name="seat_number" placeholder=" Number of seats" value='{{ latest_booking.Number_of_seats }}'></label>
+            <label for="From">From:<input type="text" name="From" placeholder="From"value= '{{ latest_booking.From }}'></label>
+            <label for="To">To:<input type="text" name="To" placeholder="To" value='{{ latest_booking.To }}'></label>
+            <label for="phone_number">Phone Number:<input type="text" name="phone_number"placeholder="0759479720" value='{{ latest_booking.phone_number }}'></label>
+          
+            <input type="submit"id='submit-button'></input>
+        </form>
+        <div class='show'>
+          <p id="ptext">Amount to Pay {{ amount }}</p>
+          <a href="{% url 'mpesa'%}"id='pay'>click here to pay</a>
+        
+          </div>
+        {% if update_ptext %}
+        <script>
+            // Function to update the ptext element with the amount
+            function updatePtext(amount) {
+               amount = parseInt(amount);
+                document.getElementById('ptext').innerHTML = 'Amount to pay kshs' + amount;
+                document.getElementById('ptext').style.display = 'block';
+                document.getElementById('pay').style.display = 'block';
+            }
+        
+            // Call the updatePtext function with the amount passed from the view
+            updatePtext('{{ amount }}');
+        
+        </script>
+        {% endif %}
+     
+        
+    
+      
+    </body>
+</html>

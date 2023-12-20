@@ -1,0 +1,125 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+     <style>
+       body{
+         background: transparent;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         background-image: url("{% static '/images/bus1.jpg' %}");
+         background-repeat: no-repeat;
+         background-size: cover; 
+         background-position: center center;
+      
+       }
+      .reservations{
+        background-color: gray;
+        padding: 5px 10px;
+        height: fit-content;
+        border-radius: 10px;
+        /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+        text-align: center;
+        width: 80vh;
+        display: block;
+        backdrop-filter:blur(50px);
+      }
+      h1{
+        font-size: 20px;
+      }
+       form{
+       text-align: center;
+       flex-direction: column;
+       display: inline-block;
+      }
+       form label {
+      display: block;
+      margin-bottom: 8px;
+      color:black;
+      margin-right: 10px;
+      font-size: 20px;
+      text-align: centre;
+    }
+  
+      .reservations form input{
+      width: 300px;
+      padding: 8px 15px;
+      margin: 5px 0;
+      box-sizing: border-box;
+      border: 1px solid #fff;
+      border-radius: 4px;
+      font-size: 14px;
+      
+    }
+      .reservations form button{
+        font-size: 25px;
+        font-weight: 300;
+        border:1px solid white;
+        border-radius: 10px;
+       font-weight: 1000px;
+       cursor: pointer;
+       transition: background-color 0.3s ease;
+       width: 150px;
+       background: coral;
+       text-align: center;
+      }
+      .reservations form button:hover{
+        background: grey;
+      }
+       #custom-select{
+      width: 300px;
+      padding: 15px;
+      margin-left: 5px ;
+      box-sizing: border-box;
+      border: 1px solid white;
+      border-radius: 4px;
+      font-size: 14px;
+      height: 30px;
+      background-color: white;
+      
+      }
+      .reservations select[name="bus"] {
+  
+      width: 300px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      height: 30px;
+      background-color:white;
+    }
+    
+
+       
+     </style>
+    </head>
+    <body>
+      <div class="reservations">
+        <h1>Make your reservations</h1>
+          <form action="" method="POST">{% csrf_token %}
+           
+             {{form.as_p}}    
+      
+        <button>submit</button>
+          </form>
+      </div>
+       
+     <!---- {% if update_ptext %}
+      <script>
+          // Function to update the ptext element with the amount
+          function updatePtext(amount) {
+             amount = parseInt(amount);
+              document.getElementById('ptext').innerHTML = 'Pay ' + amount;
+              document.getElementById('ptext').style.display = 'block';
+              document.getElementById('pay').style.display = 'block';
+          }
+      
+          // Call the updatePtext function with the amount passed from the view
+          updatePtext('{{ amount }}');
+      
+      </script>
+      {% endif %}--->
+   
+    </body>
+</html>
